@@ -13,7 +13,9 @@
     "compression": "~1.0.1",
     "lodash": "~2.4.1",
     "ejs": "~0.8.4",
-    "simplesmtp": "~0.3.24"
+    "simplesmtp": "~0.3.24",
+    "nodemailer": "~0.6.2",
+    "async": "~0.7.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
