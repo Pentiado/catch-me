@@ -15,7 +15,10 @@
     "ejs": "~0.8.4",
     "simplesmtp": "~0.3.24",
     "nodemailer": "~0.6.2",
-    "async": "~0.7.0"
+    "async": "~0.7.0",
+    "gulp": "~3.6.0",
+    "socket.io": "~0.9.16",
+    "socket.io-stream": "~0.5.3"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

@@ -17,8 +17,19 @@ var app = express();
 require('./lib/config/express')(app);
 require('./lib/routes')(app);
 
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function (socket) {
+  console.log('connection');
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
+
 // Start server
-app.listen(config.port, config.ip, function () {
+server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %s:%d, in %s mode', config.ip, config.port, app.get('env'));
 
   smtp.on('startData', function(connection){
@@ -39,4 +50,4 @@ app.listen(config.port, config.ip, function () {
 
 
 // Expose app
-exports = module.exports = app;
+exports = module.exports = server;
