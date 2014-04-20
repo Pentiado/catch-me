@@ -1,10 +1,10 @@
 'use strict';
 var express = require('express');
-var concat = require('concat-stream');
 var simplesmtp = require('simplesmtp');
 var MailParser = require('mailparser').MailParser;
 var mailparser = new MailParser();
-
+var Datastore = require('nedb');
+var db = new Datastore();
 
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -23,12 +23,20 @@ var openSocket;
 io.sockets.on('connection', function (socket) {
   console.log('connection');
   openSocket = socket;
+  db.find({}, function(err, emails){
+    if(err){ console.log(err); }
+    if(emails){ console.log('emails:', emails); }
+    openSocket.emit('email', emails);
+  });
   // emit all emails
 });
 
 simplesmtp.createSimpleServer({SMTPBanner:'My Server'}, function(req){
   mailparser.on('end', function(email){
-    console.log('Email:', email);
+    db.insert(email, function (err, newDoc) {
+      console.log('Error:', err);
+      console.log('Email:', newDoc);
+    });
     if(openSocket){ openSocket.emit('email', email); }
     // save to database
   });

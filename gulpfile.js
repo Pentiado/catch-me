@@ -6,6 +6,7 @@ var smtpTransport = nodemailer.createTransport('SMTP',{
   host: '127.0.0.1',
   port: 1025
 });
+
 var mailOptions = {
   from: 'Pawel Wszola ✔ <wszola.p@gmail.com>', // sender address
   to: 'wszola.p@gmail.com', // list of receivers

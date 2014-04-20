@@ -1,0 +1,26 @@
+.container-fluid
+  .row
+    .table-responsive
+      table.table.table-striped
+        thead
+          tr
+            th #
+            th From
+            th To
+            th Subject
+            th Received
+            th
+        tbody
+          tr(ng-repeat='email in emails')
+            td {{$index}}
+            td {{email.from[0].name}} {{email.from[0].address}}
+            td
+              ul
+                li(ng-repeat='target in email.to') {{target.name}} {{target.address}}
+            td {{email.subject}}
+            td {{date | date:dateFormat}}
+            td
+              a(ng-click='delete(messageId)') x
+
+  ng-include(src='"partials/_details.html"', ng-if='currentEmail')
+
