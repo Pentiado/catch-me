@@ -18,7 +18,11 @@
     "async": "~0.7.0",
     "gulp": "~3.6.0",
     "socket.io": "~0.9.16",
-    "socket.io-stream": "~0.5.3"
+    "nedb": "~0.10.5",
+    "concat-stream": "~1.4.5",
+    "install": "~0.1.7",
+    "npm": "~1.4.7",
+    "mailparser": "~0.4.2"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
