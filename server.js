@@ -1,4 +1,5 @@
 'use strict';
+
 var express = require('express');
 var simplesmtp = require('simplesmtp');
 var MailParser = require('mailparser').MailParser;
@@ -26,7 +27,7 @@ io.sockets.on('connection', function (socket) {
   db.find({}, function(err, emails){
     if(err){ console.log(err); }
     if(emails){ console.log('emails:', emails); }
-    openSocket.emit('email', emails);
+    openSocket.emit('emails', emails);
   });
   // emit all emails
 });
@@ -37,7 +38,7 @@ simplesmtp.createSimpleServer({SMTPBanner:'My Server'}, function(req){
       console.log('Error:', err);
       console.log('Email:', newDoc);
     });
-    if(openSocket){ openSocket.emit('email', email); }
+    if(openSocket){ openSocket.emit('emails', [email]); }
     // save to database
   });
   req.pipe(mailparser);
@@ -48,6 +49,7 @@ simplesmtp.createSimpleServer({SMTPBanner:'My Server'}, function(req){
 });
 
 // Start server
+console.log(config.port);
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %s:%d, in %s mode', config.ip, config.port, app.get('env'));
 });

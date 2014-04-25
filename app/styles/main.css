@@ -1,0 +1,6 @@
+body > .container-fluid {
+  margin-top: 80px;
+}
+body > .navbar {
+  position: static;
+}
