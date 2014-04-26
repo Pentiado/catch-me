@@ -4,7 +4,6 @@
   "dependencies": {
     "angular": ">=1.2.*",
     "angular-sanitize": ">=1.2.*",
-    "socket.io": "~0.9.15",
     "angular-socket-io": "~0.6.0"
   },
   "devDependencies": {
