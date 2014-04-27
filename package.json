@@ -113,6 +113,7 @@
     "npm": "^1.4.7",
     "open": "0.0.5",
     "requirejs": "~2.1.10",
+    "run-sequence": "^0.3.6",
     "should": "~2.1.0",
     "supertest": "~0.8.2",
     "through": "^2.3.4",

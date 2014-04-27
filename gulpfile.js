@@ -7,6 +7,7 @@ var openURL = require('open');
 var lazypipe = require('lazypipe');
 var wiredep = require('wiredep').stream;
 var nodemon = require('nodemon');
+var runSequence = require('run-sequence');
 var path = require('path');
 var nib = require('nib');
 var config;
@@ -105,8 +106,6 @@ gulp.task('coffee', function() {
 // Linting //
 /////////////
 
-gulp.task('lint', ['lint:gulp', 'lint:server', 'lint:client']);
-
 gulp.task('lint:gulp', function () {
   return gulp.src(['./Gulpfile.js']).pipe(jshint());
 });
@@ -126,18 +125,18 @@ gulp.task('lint:server', function () {
 // Start //
 ///////////
 
-
-gulp.task('clean', function () {
+gulp.task('clean:tmp', function () {
   return gulp.src('.tmp', {read: false}).pipe($.clean());
 });
 
-gulp.task('start:client', ['styles'], function () {
+gulp.task('start:client', ['styles'], function (callback) {
   whenServerReady(function () {
     openURL('http://localhost:' + config.port);
+    callback();
   });
 });
 
-gulp.task('start:server', ['lint:server'], function () {
+gulp.task('start:server', function () {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development';
   config = require('./lib/config/config');
   nodemon('-w lib server.js')
@@ -174,7 +173,12 @@ gulp.task('watch', function () {
   gulp.watch('bower.json', ['bower']);
 });
 
-gulp.task('serve', ['clean', 'lint', 'start:server', 'start:client', 'watch']);
+gulp.task('serve', function (callback) {
+  runSequence('clean:tmp',
+    ['lint:gulp', 'lint:server', 'lint:client'],
+    ['start:server', 'start:client'],
+    'watch', callback);
+});
 
 gulp.task('test:server', function () {
   process.env.NODE_ENV = 'test';
@@ -216,9 +220,17 @@ gulp.task('bower', function () {
 // Build //
 ///////////
 
-gulp.task('build', ['clean:dist', 'images', 'extras', 'html', 'client:build']);
+gulp.task('build', function (callback) {
+  runSequence('clean:dist',
+    ['images', 'copy:extras', 'copy:server', 'client:build'],
+    callback);
+});
 
-gulp.task('client:build', ['clean:dist'], function () {
+gulp.task('clean:dist', function () {
+  return gulp.src('dist', {read: false}).pipe($.clean());
+});
+
+gulp.task('client:build', ['html'], function () {
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
   var assets = $.filter('**/*.{js,css}');
@@ -237,34 +249,30 @@ gulp.task('client:build', ['clean:dist'], function () {
     .pipe($.revReplace())
     .pipe($.useref())
     .pipe(assets)
-    .pipe(gulp.dest('dist/app'));
+    .pipe(gulp.dest('dist/public'));
 });
 
 gulp.task('html', function () {
   return gulp.src('app/views/**/*')
-    .pipe(gulp.dest('dist/views'));
+    .pipe(gulp.dest('dist/public/views'));
 });
 
 gulp.task('images', function () {
   return gulp.src('app/images/**/*')
     .pipe($.cache($.imagemin({
-        optimizationLevel: 3,
+        optimizationLevel: 5,
         progressive: true,
         interlaced: true
     })))
     .pipe(gulp.dest('dist/public/images'));
 });
 
-gulp.task('extras', function () {
+gulp.task('copy:extras', function () {
   return gulp.src('app/*.*', { dot: true })
     .pipe(gulp.dest('dist/public'));
 });
 
-gulp.task('clean:dist', function () {
-  return gulp.src('dist', {read: false}).pipe($.clean());
-});
-
-gulp.task('copy:server', ['clean:dist'], function(){
+gulp.task('copy:server', function(){
   return gulp.src([
     'package.json',
     'server.js',
