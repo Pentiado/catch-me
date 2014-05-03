@@ -1,0 +1,28 @@
+article#message
+  header
+    dl.metadata
+      dt Received
+      dd {{emails[state.selected].received}}
+      dt From
+      dd {{emails[state.selected].from}}
+      dt To
+      dd {{emails[state.selected].to}}
+      dt Subject
+      dd {{emails[state.selected].subject}}
+      dt Attachments
+      dd
+        ul
+          li(ng-repeat='attachment in emails[state.selected].received')
+            {{attachment}}
+    nav.views
+      ul
+        li.format.tab.selected
+          a HTML
+        li.format.tab
+          a Plain Text
+        li.format.tab
+          a Source
+        li.action
+          a.button
+            span Download
+  iframe(ng-src='"/messages/" + state.selected + "/" + state.displayType')

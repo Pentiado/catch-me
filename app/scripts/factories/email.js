@@ -1,7 +1,12 @@
 'use strict';
 // socketFactory
-angular.module('catchMeApp').factory('emailFactory', function () {
+angular.module('catchMeApp').factory('emailFactory', ['$http', function ($http) {
   return {
-    remove: function(id){ console.log(id); }
+    remove: function (id) {
+      $http.delete('/emails/' + id);
+    },
+    removeAll: function () {
+      $http.delete('/emails');
+    }
   };
-});
+}]);

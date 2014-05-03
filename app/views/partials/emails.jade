@@ -1,0 +1,13 @@
+table
+  thead
+    tr
+      th From
+      th To
+      th Subject
+      th Received
+  tbody
+    tr(ng-repeat='email in emails', ng-class='{selected: state.selected === $index}')
+      td {{email.from[0]}}
+      td {{email.to[0]}}
+      td {{email.title}}
+      td {{email.received}}
