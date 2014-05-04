@@ -259,12 +259,15 @@ var smtpTransport = nodemailer.createTransport('SMTP',{
   port: 1025
 });
 
+var fs = require('fs');
+var emailHTML = fs.readFileSync('./test/email_example.html');
+
 var mailOptions = {
   from: 'Pawel Wszola ✔ <wszola.p@gmail.com>', // sender address
   to: 'wszola.p@gmail.com', // list of receivers
   subject: 'Hello ✔', // Subject line
   text: 'Hello world ✔', // plaintext body
-  html: '<b>Hello world ✔</b>' // html body
+  html: emailHTML // html body
 };
 
 function sendEmail(cb){

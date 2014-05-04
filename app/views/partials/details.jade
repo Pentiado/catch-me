@@ -15,14 +15,16 @@ article#message
           li(ng-repeat='attachment in selected.received')
             {{attachment}}
     nav.views
-      ul
-        li.format.tab.selected
-          a HTML
-        li.format.tab
-          a Plain Text
-        li.format.tab
-          a Source
+      ul(ng-init='state.displayType = "html"')
+        li.format.tab(ng-class='{selected: state.displayType === "html"}')
+          a(ng-click='state.displayType = "html"') HTML
+        li.format.tab(ng-class='{selected: state.displayType === "text"}')
+          a(ng-click='state.displayType = "text"') Plain Text
+        li.format.tab(ng-class='{selected: state.displayType === "source"}')
+          a(ng-click='state.displayType = "source"') Source
         li.action
-          a(ng-href='/emails/{{selected._id}}/download').button
+          a(ng-href='/emails/{{selected._id}}/download', target='_blank').button
             span Download
-  iframe(ng-src='"/emails/" + selected + "/" + state.displayType')
+  iframe(ng-if='state.displayType === "html"', ng-src='{{"/emails/" + selected._id}}')
+  pre(ng-show='state.displayType === "source"') {{selected | json}}
+  p(ng-show='state.displayType === "text"') {{selected.text}}

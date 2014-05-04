@@ -27,7 +27,7 @@ html.no-js
     nav#messages(ng-include='"/partials/emails.html"')
     #resizer
       .ruler
-    ng-include(ng-show='selected', src='"/partials/details.jade"')
+    ng-include(ng-if='selected', src='"/partials/details.jade"')
 
     script(src='/socket.io/socket.io.js')
     // build:js scripts/combined.js
