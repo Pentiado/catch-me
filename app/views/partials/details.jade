@@ -2,17 +2,17 @@ article#message
   header
     dl.metadata
       dt Received
-      dd {{emails[state.selected].received}}
+      dd {{selected.date | date: 'medium'}}
       dt From
-      dd {{emails[state.selected].from}}
+      dd <{{selected.from[0].address}}> {{selected.from[0].name}}
       dt To
-      dd {{emails[state.selected].to}}
+      dd <{{selected.to[0].address}}> {{selected.to[0].name}}
       dt Subject
-      dd {{emails[state.selected].subject}}
+      dd {{selected.subject}}
       dt Attachments
       dd
         ul
-          li(ng-repeat='attachment in emails[state.selected].received')
+          li(ng-repeat='attachment in selected.received')
             {{attachment}}
     nav.views
       ul
@@ -23,6 +23,6 @@ article#message
         li.format.tab
           a Source
         li.action
-          a.button
+          a(ng-href='/emails/{{selected._id}}/download').button
             span Download
-  iframe(ng-src='"/messages/" + state.selected + "/" + state.displayType')
+  iframe(ng-src='"/emails/" + selected + "/" + state.displayType')

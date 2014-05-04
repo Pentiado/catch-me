@@ -9,5 +9,8 @@
   "noarg": true,
   "regexp": true,
   "undef": true,
-  "smarttabs": true
+  "smarttabs": true,
+  "globals": {
+    "db": true
+  }
 }

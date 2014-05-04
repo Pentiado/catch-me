@@ -6,8 +6,8 @@ table
       th Subject
       th Received
   tbody
-    tr(ng-repeat='email in emails', ng-class='{selected: state.selected === $index}')
-      td {{email.from[0]}}
-      td {{email.to[0]}}
-      td {{email.title}}
-      td {{email.received}}
+    tr(ng-repeat='email in emails | orderBy: "-date"', ng-class='{selected: selected._id === email._id}', ng-click='select(email._id)')
+      td <{{email.from[0].address}}> {{email.from[0].name}}
+      td <{{email.to[0].address}}> {{email.to[0].name}}
+      td {{email.subject}}
+      td {{email.date | date: 'short'}}

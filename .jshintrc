@@ -21,6 +21,7 @@
   "globals": {
     "angular": false,
     "describe": true,
-    "it": true
+    "it": true,
+    "db": true
   }
 }
