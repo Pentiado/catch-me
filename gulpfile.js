@@ -129,7 +129,7 @@ gulp.task('start:server:prod', function () {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development';
   config = require('./lib/config/config');
   var forever = require('forever');
-  forever.startDaemon('./server.js');
+  forever.startDaemon('./server.js', {options: process.argv});
 });
 
 gulp.task('watch', function () {

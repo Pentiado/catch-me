@@ -1,5 +1,6 @@
 'use strict';
 
+var argv = require('minimist')(process.argv.slice(2));
 var express = require('express');
 var mailer = require('./lib/mailer');
 var sockets = require('./lib/socketio.js');
@@ -19,11 +20,12 @@ require('./lib/routes')(app);
 
 var server = require('http').createServer(app);
 
-var mail = mailer.register();
+var mail = mailer.register(argv.mailPort || config.mailPort);
 sockets.register(server, mail);
 
-server.listen(config.port, config.ip, function () {
-  console.log('Express server listening on %s:%d, in %s mode', config.ip, config.port, app.get('env'));
+var serverPort = argv.appPort || config.port;
+server.listen(serverPort, config.ip, function () {
+  console.log('Express server listening on %s:%d, in %s mode', serverPort, app.get('env'));
 });
 
 // Expose app

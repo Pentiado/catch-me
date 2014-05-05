@@ -20,6 +20,7 @@
     "mailcomposer": "^0.2.9",
     "mailparser": "~0.4.2",
     "method-override": "~1.0.0",
+    "minimist": "0.0.8",
     "morgan": "~1.0.0",
     "nedb": "~0.10.5",
     "nodemailer": "~0.6.2",
