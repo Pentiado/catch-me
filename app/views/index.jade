@@ -23,7 +23,7 @@ html.no-js
           li
             a(ng-click='clear()') Clear
           li
-            a(ng-click='quit()') Quit
+            a(href='/quit') Quit
     nav#messages(ng-include='"/partials/emails.html"')
     #resizer
       .ruler
@@ -38,7 +38,5 @@ html.no-js
     // endbower
     script(src='/scripts/app.js')
     script(src='/scripts/controllers/main.js')
-    script(src='/scripts/factories/app.js')
-    script(src='/scripts/factories/email.js')
     script(src='/scripts/factories/socket.js')
     // endbuild

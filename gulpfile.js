@@ -125,6 +125,13 @@ gulp.task('start:server', function () {
     .on('log', onServerLog);
 });
 
+gulp.task('start:server:prod', function () {
+  process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+  config = require('./lib/config/config');
+  var forever = require('forever');
+  forever.startDaemon('./server.js');
+});
+
 gulp.task('watch', function () {
   var testFiles = paths.client.test.concat(paths.server.test);
 
@@ -156,6 +163,12 @@ gulp.task('serve', function (callback) {
     'watch', callback);
 });
 
+gulp.task('serve:prod', function (callback) {
+  runSequence('clean:tmp',
+    ['start:server:prod', 'start:client'],
+    callback);
+});
+
 gulp.task('test:server', function () {
   process.env.NODE_ENV = 'test';
   return gulp.src(paths.server.test)
@@ -163,7 +176,7 @@ gulp.task('test:server', function () {
 });
 
 gulp.task('test:client', function () {
-  var testFiles = paths.client.testRequire.concat(paths.client.test)
+  var testFiles = paths.client.testRequire.concat(paths.client.test);
   gulp.src(testFiles)
     .pipe($.karma({
       configFile: paths.karma,
