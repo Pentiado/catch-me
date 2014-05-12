@@ -283,18 +283,20 @@ var mailOptions = {
   html: emailHTML // html body
 };
 
-function sendEmail(cb){
-  smtpTransport.sendMail(mailOptions, function (error, response) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Message sent: ' + response.message);
-    }
-    cb();
-  });
+function sendEmail(){
+  var i = 10;
+  while (i--) {
+    smtpTransport.sendMail(mailOptions, function (error, response) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Message sent: ' + response.message);
+      }
+    });
+  }
 }
 
-gulp.task('email', function(){
+gulp.task('email', function() {
   sendEmail();
 });
 

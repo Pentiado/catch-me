@@ -10,7 +10,9 @@ html.no-js
     // build:css styles/combined.css
     // bower:css
     // endbower
-    link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/bower_components/angular-ui/build/angular-ui.css')
+    link(rel='stylesheet', href='/styles/fontello.css')
+    link(rel='stylesheet', href='/styles/tooltip.css')
     link(rel='stylesheet', href='/styles/main.css')
     // endbuild
 
@@ -21,12 +23,10 @@ html.no-js
       nav.app
         ul
           li
-            a(ng-click='clear()') Clear
+            a.button(ng-click='clear()') Clear
           li
-            a(href='/quit') Quit
-    nav#messages(ng-include='"/partials/emails.html"')
-    #resizer
-      .ruler
+            a.button(href='/quit') Quit
+    #messages(ng-include='"/partials/emails.html"')
     ng-include(ng-if='selected', src='"/partials/details.jade"')
 
     script(src='/socket.io/socket.io.js')
@@ -35,8 +35,11 @@ html.no-js
     script(src='/bower_components/angular/angular.js')
     script(src='/bower_components/angular-sanitize/angular-sanitize.js')
     script(src='/bower_components/angular-socket-io/socket.js')
+    script(src='/bower_components/angular-bootstrap/ui-bootstrap-tpls.js')
     // endbower
+    script(src='/bower_components/angular-ui/build/angular-ui.js')
     script(src='/scripts/app.js')
     script(src='/scripts/controllers/main.js')
     script(src='/scripts/factories/socket.js')
+    script(src='/scripts/directives/iframe.js')
     // endbuild

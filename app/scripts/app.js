@@ -2,5 +2,6 @@
 
 angular.module('catchMeApp', [
   'ngSanitize',
-  'btford.socket-io'
+  'btford.socket-io',
+  'ui.bootstrap'
 ]);

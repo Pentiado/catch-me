@@ -12,30 +12,29 @@ body
   background #eeeeee
   color black
   font-size 12px
-  font-family Helvetica, sans-serif
-  &.iframe
-    background #fff
+  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   & > header
     clearfix()
     overflow hidden
     *zoom 1
-    border-bottom 1px solid #cccccc
+    background #333
+    padding 6px 0
+    border-bottom 1px solid #333333
     h1
       float left
       margin-left 6px
       padding 6px
       padding-left 10px
       font-size 18px
-      font-weight bold
+      position relative
+      top 2px
       a
-        color black
+        color white
         text-decoration none
-        text-shadow 0 1px 0 white
         transition 0.1s ease
         &:hover
           color #4183c4
     nav
-      border-left 1px solid #cccccc
       &.project
         float left
       &.app
@@ -43,35 +42,22 @@ body
       li
         display block
         float left
-        border-left 1px solid white
-        border-right 1px solid #cccccc
+        margin-right 10px
         input
           margin 6px
         a
           display block
-          padding 10px
-          text-decoration none
-          text-shadow 0 1px 0 white
-          background linear-gradient(#f4f4f4, #ececec)
-          color #666666
-          text-shadow 1px 1px 0 white
-          text-decoration none
+          padding 10px 20px
 
 .button
-  padding 0.5em 1em
-  border 1px solid #cccccc
-  border-radius 2px
-  background linear-gradient(#f4f4f4, #ececec)
-  color #666666
-  text-shadow 1px 1px 0 white
+  background #008cba
   text-decoration none
+  color white
+  text-decoration none
+  transition: background-color 300ms ease-out;
 
 .button:hover, .button:focus
-  border-color #999999
-  border-bottom-color #666666
-  background linear-gradient(#eeeeee, #dddddd)
-  color #333333
-  text-decoration none
+  background-color: #2285a2;
 
 .button:active, .button.active
   border-color #666666
@@ -81,16 +67,53 @@ body
   text-decoration none
   text-shadow -1px -1px 0 #eeeeee
 
-body > header nav li a:hover, body > header nav li a:focus
-  background linear-gradient(#eeeeee, #dddddd)
-  color #333333
-  text-decoration none
+table
+  background white
+  margin-bottom 0
+  width 100%
 
-body > header nav li a:active, body > header nav li a.active
-  background linear-gradient(#dddddd, #eeeeee)
-  color #333333
-  text-decoration none
-  text-shadow -1px -1px 0 #eeeeee
+table thead,
+  table tfoot
+  background whitesmoke
+
+table thead tr th,
+    table thead tr td,
+    table tfoot tr th,
+    table tfoot tr td
+  padding 10px
+  font-size 14px
+  font-weight bold
+  color #222222
+  text-align left
+
+table tr th,
+  table tr td
+  padding 8px 10px
+  font-size 14px
+  color #222222
+
+table tr.even, table tr.alt, table tr:nth-of-type(even)
+  background #f9f9f9
+
+table thead tr th,
+  table tfoot tr th,
+  table tbody tr td,
+  table tr td,
+  table tfoot tr td
+  display table-cell
+  line-height 1.125rem
+
+.guide-table
+  [class^="icon-"]
+    font-size 18px
+  tr.short
+    background #EBEFF1
+    td
+      font-weight bold
+  tr td
+    text-align center
+  tr td:first-child
+    text-align left
 
 #messages
   width 100%
@@ -98,57 +121,42 @@ body > header nav li a:active, body > header nav li a.active
   min-height 3em
   overflow auto
   background white
-  border-top 1px solid white
   table
     clearfix()
     overflow hidden
     *zoom 1
     width 100%
     thead
-      tr
-        background #eeeeee
-        color #333333
-        th
-          padding 0.25em
-          font-weight bold
-          color #666666
-          text-shadow 0 1px 0 white
+      tr th
+        padding 0.25em 10px
     tbody
       tr
         cursor pointer
         transition 0.1s ease
-        color #333333
         &:hover
           color black
-        &:nth-child(even)
-          background #f0f0f0
         &.selected
           background Highlight
           color HighlightText
         td
-          padding 0.25em
-          &.blank
-            color #666666
-            font-style italic
-
-#resizer
-  padding-bottom 5px
-  cursor ns-resize
-  .ruler
-    border-top 1px solid #cccccc
-    border-bottom 1px solid white
+          padding 0.25em 10px
 
 #message
   & > header
+    position relative
+    padding-top 5px
     clearfix()
     overflow hidden
+    background #333
     *zoom 1
+    color white
     .metadata
       clearfix()
       overflow hidden
       *zoom 1
       padding 0.5em
       padding-top 0
+      margin-right 300px
       dt
         float left
         clear left
@@ -156,8 +164,6 @@ body > header nav li a:active, body > header nav li a.active
         margin-right 0.5em
         text-align right
         font-weight bold
-        color #666666
-        text-shadow 0 1px 0 white
       dd
         &.subject
           font-weight bold
@@ -170,43 +176,49 @@ body > header nav li a:active, body > header nav li a.active
             vertical-align middle
             margin-right 0.5em
     .views
+      .download
+        padding 10px 20px
+        margin 7px 15px
+        float right
       ul
-        clearfix()
-        padding 0 0.5em
-        border-bottom 1px solid #cccccc
+        position absolute
+        bottom 0
+        right 15px
       .tab
-        height: 25px
         display inline-block
         vertical-align middle
         a
           display inline-block
           vertical-align middle
-          padding 0.5em
-          border 1px solid #cccccc
-          background #dddddd
-          color #333333
-          border-width 1px 1px 0 1px
+          padding 8px 14px
+          background white
+          color #222
           cursor pointer
-          text-shadow 0 1px 0 #eeeeee
           text-decoration none
         &:not(.selected):hover
           a
             background-color #eeeeee
         &.selected
           a
-            background white
+            background #efefef
             color black
-            -webkit-box-shadow 1px 1px 0 #cccccc
-            -moz-box-shadow 1px 1px 0 #cccccc
-            box-shadow 1px 1px 0 #cccccc
-            margin-bottom -2px
             cursor default
-      .action
-        display inline-block
-        vertical-align middle
-        float right
-        margin 0 0.25em
 
 #message > header .metadata dt, #message > header .metadata dd
   padding 0.25em
 
+iframe
+  width 100%
+
+.plain-text
+  padding 25px
+  font-size 16px;
+
+.icon-ok-circled
+  color #AFDA00
+
+.icon-cancel-circled
+  color #E30500
+
+.icon-info-circled
+  color #68C5EA
