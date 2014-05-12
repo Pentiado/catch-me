@@ -6,3 +6,4 @@ app/bower_components
 heroku
 /views
 dist
+coverage.html
