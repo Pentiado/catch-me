@@ -1,6 +1,6 @@
 {
   "name": "catch-me",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Catch, display and validate emails",
   "main": "./server.js",
   "repository": {
