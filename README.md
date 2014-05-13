@@ -38,7 +38,8 @@ Running `npm test` will run the unit tests with mocha.
 
 ## Credits
 * [Samuel Cochran](https://github.com/sj26), the guy behind [mailcatcher](https://github.com/sj26/mailcatcher) who inspired me to implement a similar solution for the NodeJS world.
+* [campaignmonitor](campaignmonitor.com) because they created awesome css guide to emails
 
 ## Author
 
-Copyright 2014, [Paweł Wszoła](https://github.com/Pentiado) (wszola.p@gmail.com)
+Copyright 2014, Paweł Wszoła
