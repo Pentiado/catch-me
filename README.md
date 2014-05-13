@@ -1,6 +1,8 @@
-# CatchMe [ ![Codeship Status for Pentiado/email-guide](https://www.codeship.io/projects/2a8b9360-ba90-0131-330f-0aa8124e7323/status?branch=master)](https://www.codeship.io/projects/20908) [![Coverage Status](https://coveralls.io/repos/Pentiado/email-guide/badge.png?branch=master)](https://coveralls.io/r/Pentiado/email-guide?branch=master)
+# CatchMe [ ![Codeship Status for Pentiado/email-guide](https://www.codeship.io/projects/2a8b9360-ba90-0131-330f-0aa8124e7323/status?branch=master)](https://www.codeship.io/projects/20908) [![Coverage Status](https://coveralls.io/repos/Pentiado/catch-me/badge.png?branch=master)](https://coveralls.io/r/Pentiado/catch-me?branch=master)
 
 > CatchMe runs a simple SMTP server which catches any message sent to it to display in a web interface. Run CatchMe, set your app to deliver to smtp://127.0.0.1:1025, then check out http://127.0.0.1:1080 to see the emails that arrived so far.
+
+![CatchMe screenshot](http://s30.postimg.org/5oxrwoxi9/Screen_Shot_2014_05_12_at_23_14_43.png)
 
 ## Features
 
@@ -11,7 +13,24 @@
 * Email appears instantly in your browser via Socket.io
 * Runs as a daemon in the background
 
-## How
+![CatchMe screenshot](http://s30.postimg.org/5wlet78gx/Screen_Shot_2014_05_12_at_23_15_08.png)
+
+## Usage
+
+Install `catch-me`:
+```
+npm install catch-me -g
+```
+
+Run `catchme`
+```
+catchme
+```
+
+If you need some specific ports just pass them here
+```
+catchme --mailPort 1234 --appPort 4321
+```
 
 ## Testing
 

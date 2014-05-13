@@ -41,8 +41,8 @@ describe('index controller', function () {
       });
     });
     it('should stop process', function (done) {
-      var previousEnv = process.env;
-      process.env = 'production';
+      var previousEnv = process.NODE_ENV;
+      process.NODE_ENV = 'production';
       var listStub = sinon.stub(forever, 'list');
       var stopStub = sinon.stub(forever, 'stop');
       listStub.callsArgWith(1, null, [{pid: process.pid}]);
@@ -50,7 +50,7 @@ describe('index controller', function () {
       request(server).get('/quit').end(function (err, res) {
         listStub.restore();
         stopStub.restore();
-        process.env = previousEnv;
+        process.NODE_ENV = previousEnv;
         expect(listStub.calledOnce).to.be.ok;
         expect(stopStub.calledOnce).to.be.ok
         expect(res.status).to.equal(200);

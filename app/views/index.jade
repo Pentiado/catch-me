@@ -27,7 +27,7 @@ html.no-js
           li
             a.button(href='/quit') Quit
     #messages(ng-include='"/partials/emails.html"')
-    ng-include(ng-if='selected', src='"/partials/details.jade"')
+    ng-include(ng-if='selected', src='"/partials/details.html"')
 
     script(src='/socket.io/socket.io.js')
     // build:js scripts/combined.js

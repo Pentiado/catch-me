@@ -19,14 +19,9 @@
   "bugs": {
     "url": "https://github.com/Pentiado/catch-me/issues"
   },
-  "preferGlobal": "true",
-  "bin": {
-    "catchme": "./bin/catch_me"
-  },
   "scripts": {
     "test": "NODE_ENV=test node_modules/.bin/mocha --recursive --reporter spec",
-    "coverage": "NODE_ENV=test node_modules/.bin/mocha --recursive -r blanket -R html-cov > coverage.html",
-    "start": "NODE_ENV=production node_modules/.bin/forever start dist/server.js"
+    "coverage": "NODE_ENV=test node_modules/.bin/mocha --recursive -r blanket -R html-cov > coverage.html"
   },
   "config": {
     "blanket": {

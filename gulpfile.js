@@ -19,18 +19,7 @@ var yeoman = {
 var paths = {
   client: {
     scripts: [yeoman.app + '/scripts/**/*.js'],
-    styles: [yeoman.app + '/styles/**/*.styl'],
-    test: ['test/client/**/*.js'],
-    testRequire: [
-      yeoman.app + '/bower_components/angular/angular.js',
-      yeoman.app + '/bower_components/angular-mocks/angular-mocks.js',
-      yeoman.app + '/bower_components/angular-resource/angular-resource.js',
-      yeoman.app + '/bower_components/angular-cookies/angular-cookies.js',
-      yeoman.app + '/bower_components/angular-sanitize/angular-sanitize.js',
-      yeoman.app + '/bower_components/angular-route/angular-route.js',
-      'test/mock/**/*.js',
-      'test/spec/**/*.js'
-    ]
+    styles: [yeoman.app + '/styles/**/*.styl']
   },
   server: {
     scripts: ['lib/**/*.js'],
@@ -67,7 +56,7 @@ function checkAppReady(cb) {
 function whenServerReady (cb) {
   var serverReady = false;
   var appReadyInterval = setInterval(function () {
-    checkAppReady(function(ready){
+    checkAppReady(function(ready) {
       if (!ready || serverReady) { return; }
       clearInterval(appReadyInterval);
       serverReady = true;
@@ -124,16 +113,7 @@ gulp.task('start:server', function () {
     .on('log', onServerLog);
 });
 
-gulp.task('start:server:prod', function () {
-  process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-  config = require('./lib/config/config');
-  var forever = require('forever');
-  forever.startDaemon('./server.js', {options: process.argv});
-});
-
 gulp.task('watch', function () {
-  var testFiles = paths.client.test.concat(paths.server.test);
-
   $.watch({glob: paths.client.styles})
     .pipe($.plumber())
     .pipe(styles())
@@ -148,7 +128,7 @@ gulp.task('watch', function () {
     .pipe(lintScripts())
     .pipe($.livereload());
 
-  $.watch({glob: paths.server.scripts.concat(testFiles)})
+  $.watch({glob: paths.server.scripts.concat(paths.server.test)})
     .pipe($.plumber())
     .pipe(lintScripts());
 
@@ -166,21 +146,6 @@ gulp.task('serve:prod', function (callback) {
   runSequence('clean:tmp',
     ['start:server:prod', 'start:client'],
     callback);
-});
-
-gulp.task('test:server', function () {
-  process.env.NODE_ENV = 'test';
-  return gulp.src(paths.server.test)
-    .pipe($.mocha({reporter: 'spec'}));
-});
-
-gulp.task('test:client', function () {
-  var testFiles = paths.client.testRequire.concat(paths.client.test);
-  gulp.src(testFiles)
-    .pipe($.karma({
-      configFile: paths.karma,
-      action: 'watch'
-    }));
 });
 
 // inject bower components
@@ -251,51 +216,13 @@ gulp.task('copy:extras', function () {
 });
 
 gulp.task('copy:fonts', function () {
-  return gulp.src(yeoman.app + '/fonts/**/*')
-    .pipe(gulp.dest(yeoman.dist + '/fonts'));
+  return gulp.src(yeoman.app + '/styles/fonts/**/*')
+    .pipe(gulp.dest(yeoman.dist + '/public/styles/fonts'));
 });
 
-gulp.task('copy:server', function(){
+gulp.task('copy:server', function() {
   return gulp.src([
-    'package.json',
     'server.js',
     'lib/**/*'
   ], {cwdbase: true}).pipe(gulp.dest(yeoman.dist));
 });
-
-// MAILER
-
-var nodemailer = require('nodemailer');
-var smtpTransport = nodemailer.createTransport('SMTP',{
-  host: '127.0.0.1',
-  port: 1025
-});
-
-var fs = require('fs');
-var emailHTML = fs.readFileSync('./test/email_example.html');
-
-var mailOptions = {
-  from: 'Pawel Wszola ✔ <wszola.p@gmail.com>', // sender address
-  to: 'wszola.p@gmail.com', // list of receivers
-  subject: 'Hello ✔', // Subject line
-  text: 'Hello world ✔', // plaintext body
-  html: emailHTML // html body
-};
-
-function sendEmail(){
-  var i = 10;
-  while (i--) {
-    smtpTransport.sendMail(mailOptions, function (error, response) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Message sent: ' + response.message);
-      }
-    });
-  }
-}
-
-gulp.task('email', function() {
-  sendEmail();
-});
-

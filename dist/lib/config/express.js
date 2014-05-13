@@ -14,18 +14,18 @@ var express = require('express'),
 module.exports = function(app) {
   var env = app.get('env');
 
-  // Disable caching of scripts for easier testing
-  app.use(function noCache(req, res, next) {
-    if (req.url.indexOf('/scripts/') === 0) {
-      res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
-      res.header('Pragma', 'no-cache');
-      res.header('Expires', 0);
-    }
-    next();
-  });
-
   if ('development' === env) {
     app.use(require('connect-livereload')());
+
+    // Disable caching of scripts for easier testing
+    app.use(function noCache(req, res, next) {
+      if (req.url.indexOf('/scripts/') === 0) {
+        res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.header('Pragma', 'no-cache');
+        res.header('Expires', 0);
+      }
+      next();
+    });
 
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(path.join(config.root, 'app')));
@@ -34,7 +34,7 @@ module.exports = function(app) {
 
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
-    app.use(express.static(config.root + '/dist/public'));
+    app.use(express.static(config.root + '/public'));
     app.set('views', config.root + '/public/views');
   }
 

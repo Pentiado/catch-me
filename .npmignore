@@ -1,0 +1,11 @@
+app/
+lib/
+test/
+.bowerrc
+bower.json
+Gulpfile.js
+server.js
+
+.tmp
+.sass-cache
+coverage.html

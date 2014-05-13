@@ -12,6 +12,7 @@ angular.module('catchMeApp')
 
     $scope.clear = function () {
       $scope.emails = [];
+      delete $scope.selected;
       mySocket.emit('emails:delete');
     };
 
