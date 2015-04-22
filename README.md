@@ -32,6 +32,12 @@ If you need some specific ports just pass them here
 catchme --mailPort 1234 --appPort 4321
 ```
 
+
+If you like running all the things in foreman, pass `true` to --f
+```
+catchme --f true
+```
+
 ## Testing
 
 Running `npm test` will run the unit tests with mocha.
