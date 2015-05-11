@@ -5,8 +5,11 @@ var config = require('../dist/lib/config/config.js');
 var forever = require('forever');
 
 process.env.NODE_ENV = 'production';
-forever.startDaemon(__dirname + '/../dist/server.js', {options: process.argv});
-
+if(argv.f === 'true'){
+  forever.start(__dirname + '/../dist/server.js', { options: process.argv });
+} else {
+  forever.startDaemon(__dirname + '/../dist/server.js', {options: process.argv});
+}
 var serverPort = argv.appPort || config.port;
 var mailPort = argv.mailPort || config.mailPort;
 console.log('Send your emails to smtp://127.0.0.1:%s and receive them on http://127.0.0.1:%s', mailPort, serverPort);
